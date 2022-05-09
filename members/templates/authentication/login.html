@@ -1,0 +1,42 @@
+{% extends 'events/base/base_admin.html' %}
+{% load static %}
+
+{% block content %}
+<main id="main" style="margin-left: 0px;">
+   <section id="hero" class="d-flex flex-column justify-content-center">
+      <div class="container" data-aos="zoom-in" data-aos-delay="100">
+        <div class="section-title">
+          <h2>Увійти в розділ Адміністратора</h2>
+          <p></p>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 chec" style="width: auto;">
+          </div>
+          <div class="col-lg-8 pt-4 pt-lg-0 content"></div>
+               <strong></strong>
+            <div class="shadow p-3 mb-5 bg-white rounded" id="boxlogin" style="width: auto;">
+                <form action="" method=POST>
+                    {% csrf_token %}
+                      <div class="mb-3">
+                        <label  class="form-label">Користувач</label>
+                        <input type="text" class="form-control" name="username" aria-describedby="">
+                      </div>
+                      <div class="mb-3">
+                        <label  class="form-label">Пароль</label>
+                        <input type="password" class="form-control" name="password">
+                      </div>
+                    <input type="submit" value="Вхід" class="btn btn-primary">
+                </form>
+            </div>
+                <div class="back2">
+                       <a href="{% url 'index' %}" type="button" class="btn btn-secondary">Назат</a>
+                </div>
+
+            <div class="col-lg-8 mt-5 mt-lg-0"></div>
+          </div>
+        </div>
+   </section><!-- End Services Section -->
+   <section id="about" class="about"></section>
+   <section id="contact" class="contact"></section>
+</main><!-- End #main -->
+{% endblock %}

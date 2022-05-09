@@ -1,0 +1,76 @@
+{% extends 'events/base/base_admin.html' %}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<main id="main">
+   <section id="resume" class="resume"></section>
+   <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Додати</h2>
+          <p></p>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 chec" style="width: auto;">
+              {% if submitted %}
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                  <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                  </symbol>
+                </svg>
+                <div class="alert alert-success d-flex align-items-center" role="alert">
+                  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                  <div>
+                    Данні було успішно збережано!
+                  </div>
+                </div>
+              </div>
+              </div>
+              <br><br>
+              <div class="back2">
+                   <a href="{% url 'admin-news' %}" type="button" class="btn btn-secondary">Назат</a>
+              </div>
+              {% else %}
+          </div>
+          <div class="col-lg-8 pt-4 pt-lg-0 content"></div>
+               <strong></strong>
+            <form method = POST enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.media }}
+                            {{ form.as_p }}
+                 <input type="submit" value="Зберегти" class="btn btn-primary">
+            </form>
+            <div class="back">
+                   <a href="{% url 'admin-news' %}" type="button" class="btn btn-secondary">Назат</a>
+            </div>
+
+            {% endif %}
+          <div class="col-lg-8 mt-5 mt-lg-0"></div>
+   </section><!-- End Services Section -->
+</main><!-- End #main -->
+{% else %}
+<main id="main2" style="margin-left: 0px;">
+   <section id="hero" class="d-flex flex-column justify-content-center">
+      <div class="container" data-aos="zoom-in" data-aos-delay="100">
+        <div class="section-title">
+          <h2>В Вас не має прав Адманістратора!!!</h2>
+          <p></p>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 chec" style="width: auto;">
+          </div>
+          <div class="col-lg-8 pt-4 pt-lg-0 content"></div>
+               <strong></strong>
+                <div class="back2">
+                       <a href="{% url 'index' %}" type="button" class="btn btn-secondary">Назат</a>
+                </div>
+            <div class="col-lg-8 mt-5 mt-lg-0"></div>
+          </div>
+        </div>
+   </section><!-- End Services Section -->
+   <section id="about2" class="about"></section>
+   <section id="contact2" class="contact"></section>
+</main><!-- End #main -->
+{% endif %}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'events/base/base_admin.html' %}
+{% load static %}
+
+{% block content %}
+<main id="main">
+   <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Історія</h2>
+          <p></p>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+              {% if histor.photo %}
+             <img src="{{ histor.photo.url }}" class="card-img-top" style="background-position: center;">
+              {% else %}
+              <img src="#" class="card-img-top" style="display: none;">
+              {% endif %}
+          </div>
+          <div class="col-lg-8 pt-4 pt-lg-0 content" style="text-align: justify;">
+            <p class="fst-italic">
+                 <strong>{{ histor }}</strong>
+              {{ histor.description | safe }}
+            </p>
+              <a href="{% url 'admin-history' %}" type="button" class="btn btn-secondary">Назат</a>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Services Section -->
+</main><!-- End #main -->
+<section id="contact" class="contact">
+       </section>
+{% endblock %}

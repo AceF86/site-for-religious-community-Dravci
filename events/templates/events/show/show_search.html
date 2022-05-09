@@ -1,0 +1,86 @@
+{% extends 'events/base/base.html' %}
+{% load static %}
+
+{% block content %}
+<main id="main">
+   <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title"><h2>Пошук</h2><p></p></div>
+        <div class="row" style="justify-content: center; display: block; align-items: center; margin: 0px auto; ">
+              {% if searched %}
+                <form class="d-flex" method=POST action="{% url 'show-search' %}">
+                  {% csrf_token %}
+                  <input class="form-control me-2" type="search" placeholder="Пошук" name="searched"
+                             aria-label="Search" style="width: 60%;">
+                    <button class="btn btn-outline-primary" type="submit">Пошук</button>
+                </form>
+                    <div class="push"></div>
+                    <div class="progress" style="height: 1px;">
+                      <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                            {% for n in news %}
+                          <div class="card-body" style="word-wrap: break-word; overflow-wrap: break-word;text-align: justify; padding: 4px;margin-bottom: 11px;">
+                            <h5 class="card-title">
+                                <a href="{% url 'show-search-news' n.id %}">
+                                <strong>{{ n.name }}</strong></a></h5>
+
+                               <small class="text-muted" style="font-family: arial,sans-serif;line-height: 1;">
+                                 {{ n.description | safe |truncatewords:20}}
+                                </small>
+
+                          </div>{% endfor %}
+
+                            {% for h in histor %}
+                          <div class="card-body" style="word-wrap: break-word; overflow-wrap: break-word;text-align: justify; padding: 4px;margin-bottom: 11px;">
+                            <h5 class="card-title">
+                                <a href="{% url 'show-search-history' h.id %}">
+                                <strong>{{ h.name }}</strong></a></h5>
+                               <small class="text-muted" style="font-family: arial,sans-serif;line-height: 1;">
+                                 {{ h.description | safe |truncatewords:20 }}
+                                </small>
+                          </div>{% endfor %}
+
+                            {% for p in preaching %}
+                          <div class="card-body" style="word-wrap: break-word; overflow-wrap: break-word;text-align: justify; padding: 4px;margin-bottom: 11px;">
+                            <h5 class="card-title">
+                                <a href="{% url 'show-search-preaching' p.id %}">
+                                <strong>{{ p.name }}</strong></a></h5>
+
+                               <small class="text-muted" style="font-family: arial,sans-serif;line-height: 1;">
+                                 {{ p.description | safe |truncatewords:20 }}
+                                </small>
+
+                          </div>{% endfor %}
+              <br/><br/><br/><br/><br/><br/><br/><br/>
+            <div class="fixb">
+              <a href="{% url 'index' %}" type="button" class="btn btn-secondary">Назат</a></div>
+            {% else %}
+
+                <form class="d-flex" method=POST action="{% url 'show-search' %}">
+                  {% csrf_token %}
+                  <input class="form-control me-2" type="search" placeholder="Пошук" name="searched"
+                             aria-label="Search" style="width: 60%;">
+                    <button class="btn btn-outline-primary" type="submit">Пошук</button>
+                </form>
+                    <div class="push"></div>
+                    <div class="progress" style="height: 1px;">
+                      <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                          <div class="card-body" style="word-wrap: break-word; overflow-wrap: break-word;text-align: justify; padding: 4px;margin-bottom: 11px;">
+                            <h5 class="card-title">
+                                <strong></strong></h5>
+                               <small class="text-muted" style="font-family: arial,sans-serif;line-height: 1;">
+                                </small>
+                          </div>
+                 <div class="fixb">
+              <a href="{% url 'index' %}" type="button" class="btn btn-secondary">Назат</a></div>
+            {% endif %}
+            <br/><br/><br/><br/>
+          </div>
+      </div>
+   </section>
+</main><!-- End #main -->
+<section id="portfolio" class="portfolio section-bg"></section>
+<section id="resume" class="resume"></section>
+<section id="contact" class="contact"></section>
+{% endblock %}

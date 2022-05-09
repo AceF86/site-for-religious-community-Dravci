@@ -1,0 +1,66 @@
+{% extends 'events/base/base.html' %}
+{% load static %}
+
+{% block content %}
+<main id="main">
+   <section id="resume" class="resume">
+       <div class="msg">
+       <center>{% include 'events/base/message.html' %}</center>
+           </div>
+      <div class="container" data-aos="fade-up">
+        <div class="section-title"><h2>Розклад</h2>
+             {% if user.is_authenticated %}
+            <a href="{% url 'add-d' %}" type="button" class="btn btn-primary">Додати</a>
+            {% endif %}
+            <p></p></div>
+          {% for e in event_week %}
+          <div class="">
+            <div class="row " style="justify-content: center; display: block; width: auto;">
+              <div class="list">
+                <div class="resume-item pb-0">
+                  <h4>{{ e.date|date:"l - d F Y" }} {{ e.name }}</h4>
+                    <div class="list-line-dayes">
+                    {{ e.list | safe  }}
+                        </div>
+                        {% if user.is_authenticated %}
+                  <ul style="list-style: none; text-align: justify;">
+                  </ul>
+                   <span class="badge bg-dark">Створено : {{ e.created }}</span>
+                  <ul style="list-style: none; text-align: justify;">
+                  </ul>
+                     <a href="{% url 'update-d' e.id %}"
+                             type="button" class="btn btn-outline-primary">Обновити</a>
+                    <a href="{% url 'delete-d' e.id %}"
+                             type="button" class="btn btn-outline-danger">Видалити</a>
+                      {% endif %}
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+      </div>
+    </section>
+   <section id="about" class="about"></section>
+   <section id="contact" class="contact"></section>
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+
+        {% if event_week.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ event_week.previous_page_number }}">Назад</a></li>
+        {% endif %}
+
+        {% for i in nums %}
+            <li class="page-item"><a class="page-link"
+                                     href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+         {% endfor %}
+
+        {% if event_week.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ event_week.next_page_number }}">Далі</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ event_week.paginator.num_pages }}">&raquo</a></li>
+        {% endif %}
+        </ul>
+    </nav>
+</main>
+{% endblock %}

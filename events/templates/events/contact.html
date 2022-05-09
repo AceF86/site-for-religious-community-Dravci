@@ -1,0 +1,61 @@
+{% extends 'events/base/base.html' %}
+{% load static %}
+
+{% block content %}
+<main id="main">
+    <section id="contact" class="contact">
+             <div class="msg">
+                 <center>{% include 'events/base/message.html' %}</center>
+             </div>
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Контакти</h2></div>
+        {% for c in contact %}
+        <div class="row mt-1">
+          <div class="col-lg-4">
+            <strong>Настоятель храму <br/><br/>о.{{c.first_name}}</strong>
+            <div class="info">
+              <div class="phone">
+                <i class="bi bi-phone"></i>
+                <h4>Мобільний номер:</h4>
+                <p><a href="tel:{{ c.phone }}">{{ c.phone }}</a></p><div>
+              <div class="phone">
+                <i class="bi bi-phone"></i>
+
+                <h4>Viber:</h4>
+                <p><a href="viber://chat?number={{ c.phone }}">{{ c.phone }}</a></p>
+                <br><br><div>
+                      {% if user.is_authenticated %}
+                  <ul style="list-style: none; text-align: justify;">
+                  </ul>
+                   <span class="badge bg-dark">Створено : {{ c.created }}</span>
+                  <ul style="list-style: none; text-align: justify;">
+                  </ul>
+                     <a href="{% url 'update-contact' c.id %}"
+                             type="button" class="btn btn-outline-primary">Обновити</a>
+
+                     <a href="{% url 'delete-contact' c.id %}"
+                             type="button" class="btn btn-outline-danger">Видалити</a>
+                      {% endif %}
+              </div>
+                <div></div>
+                  <br/><br/>
+              <div class="address">
+                <i class="bi bi-geo-alt"></i>
+                <h4>Розташування:</h4>
+                <br><br>
+                <iframe class="location" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5278.764755350349!2d22.324976156192147!3d48.583376968029825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47391bde37af41d3%3A0xa82320aab776021a!2z0KbQtdGA0LrQstCwINCg0ZbQt9C00LLQsCDQn9GA0LXRgdCy0Y_RgtC-0Zcg0JHQvtCz0L7RgNC-0LTQuNGG0ZY!5e0!3m2!1suk!2sua!4v1650226705793!5m2!1suk!2sua"
+                        style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+            </div>
+           </div>
+          </div>
+        </div>
+        </div>
+          {% endfor %}
+          <div class="col-lg-8 mt-5 mt-lg-0"></div>
+
+        </div>
+      </div>
+    </section>
+</main><!-- End #main -->
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'events/base/base_admin.html' %}
+{% load static %}
+
+{% block content %}
+<main id="main">
+   <section id="resume" class="resume"></section>
+   <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Розклад</h2>
+          <p></p>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+          </div>
+          <div class="col-lg-8 pt-4 pt-lg-0 content" style="text-align: justify;">
+                 <strong>{{ event_week }} {{ event_week.date|date:"l - d F Y"  }}</strong>
+                <br/>
+                <blockquote class="blockquote">
+                  <p>{{ event_week.list | safe }}</p>
+                </blockquote>
+              <br/><br/><br/><br/><br/><br/>
+              <a href="{% url 'admin-menu' %}" type="button" class="btn btn-secondary"
+                 style="margin-left: 10%;font-size: 18px;">Назат</a>
+          </div>
+        </div>
+      </div>
+   </section><!-- End Services Section -->
+   <section id="contact" class="contact"></section>
+   <section id="about" class="about"></section>
+</main><!-- End #main -->
+{% endblock %}

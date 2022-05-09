@@ -1,0 +1,94 @@
+{% extends 'events/base/base_admin.html' %}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<main id="main">
+   <section id="resume" class="resume"></section>
+   <section id="services" class="services">
+       <div class="msg-admin">
+         <center>{% include 'events/base/message.html' %}</center>
+             </div>
+      <div class="container" data-aos="fade-up">
+        <div class="section-title"><h2>Меню Адміністратора<br>Проповіді</h2><p></p><br>
+
+            <a href="{% url 'add-preaching' %}" type="button" class="btn btn-primary">Додати</a>
+        </div>
+            <ul class="list-inline">
+              <li class="list-inline-item"><strong></strong></li>
+              <li class="list-inline-item"></li>
+              <li class="list-inline-item"></li>
+            </ul>
+          <br/>
+          <div class="list-admin">
+              {% for p in preaching %}
+            <div class="row list" style="justify-content: center; display: block; width: auto;">
+              <div class="">
+                  <ul style="list-style: none; text-align: justify;">
+                  </ul>
+                <div class="resume-item pb-0">
+                  <a href="{% url 'show-admin-preaching' p.id %}"><h4>
+                      {{ p.name|truncatechars:19}}</h4></a>-
+                   <span class="badge bg-dark">Додано : {{ p.created }}</span>
+                    <br/>
+                   -<span class="badge bg-info text-dark">Дата викладення : {{ p.date }}</span>
+                  <ul style="list-style: none; text-align: justify;">
+                  </ul>
+                     <a href="{% url 'update-preaching' p.id %}"
+                             type="button" class="btn btn-outline-primary">Обновити</a>
+                     <a href="{% url 'delete-preaching' p.id %}"
+                             type="button" class="btn btn-outline-danger">Видалити</a>
+                </div>
+              </div>
+            </div>
+
+              {% endfor %}
+          </div>
+      </div>
+   </section><!-- End Services Section -->
+   <section id="about" class="about"></section>
+   <section id="contact" class="contact"></section>
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        {% if preaching.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page=1">&laquo</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ preaching.previous_page_number }}">Назад</a></li>
+        {% endif %}
+      <!--   <li class="page-item disabled"><a class="page-link" href="#">Сторінка {{ news.number }} of {{ news.paginator.num_pages }}</a></li>-->
+        {% for i in nums %}
+            <li class="page-item"><a class="page-link"
+                                     href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+         {% endfor %}
+        {% if preaching.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ preaching.next_page_number }}">Далі</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ preaching.paginator.num_pages }}">&raquo</a></li>
+        {% endif %}
+        </ul>
+    </nav>
+</main><!-- End #main -->
+{% else %}
+<main id="main22" style="margin-left: 0px;">
+   <section id="hero2" class="d-flex flex-column justify-content-center">
+      <div class="container" data-aos="zoom-in" data-aos-delay="100">
+        <div class="section-title">
+          <h2>В Вас не має прав Адманістратора!!!</h2>
+          <p></p>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 chec2" style="width: auto;">
+          </div>
+          <div class="col-lg-8 pt-4 pt-lg-0 content"></div>
+               <strong></strong>
+                <div class="back2">
+                       <a href="{% url 'index' %}" type="button" class="btn btn-secondary">Назат</a>
+                </div>
+            <div class="col-lg-8 mt-5 mt-lg-0"></div>
+          </div>
+        </div>
+   </section><!-- End Services Section -->
+   <section id="about22" class="about"></section>
+   <section id="contact22" class="contact"></section>
+</main><!-- End #main -->
+{% endif %}
+{% endblock %}

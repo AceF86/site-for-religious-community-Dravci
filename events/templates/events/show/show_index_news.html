@@ -1,0 +1,36 @@
+{% extends 'events/base/base.html' %}
+{% load static %}
+
+{% block content %}
+<main id="main">
+   <section id="services" class="services">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title"><h2>Новини</h2><p></p></div>
+        <div class="row" style="justify-content: center; flex-wrap: wrap; align-items: center; margin: 0px auto; ">
+            <div class="row g-0" style="border-bottom: 55px solid #fff;">
+                <div class="col-md-4" style="object-fit:cover; justify-content: flex-start;">
+                    {% if newse.photo %}
+                    <img src="{{ newse.photo.url }}" class="card-img-top" style="background-position: center;">
+                    {% else %}
+                    <img src="#" class="card-img-top" style="display: none;">
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body" style="word-wrap: break-word; overflow-wrap: break-word;text-align: justify;">
+                    <h5 class="card-title"><strong>{{ newse }}</strong></h5>
+                    <p class="card-text">
+                         {{ newse.description | safe }}
+                        <small class="text-muted">
+                        <a href="{% url 'index' %}" class="btn btn-secondary">Назат</a>
+                    </small>
+                    </p>
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section><!-- End Services Section -->
+</main><!-- End #main -->
+<section id="contact" class="contact">
+       </section>
+{% endblock %}

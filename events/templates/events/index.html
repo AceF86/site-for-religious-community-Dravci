@@ -1,0 +1,170 @@
+{% extends 'events/base/base.html' %}
+{% load static %}
+
+{% block content %}
+  <section id="hero" class="d-flex flex-column justify-content-center">
+      <div class="message">
+        <center>{% include 'events/base/message.html' %}</center>
+          </div>
+    <div class="container" data-aos="zoom-in" data-aos-delay="100">
+      <a href="https://uk.wikipedia.org/wiki/%D0%94%D1%80%D0%B0%D0%B2%D1%86%D1%96" class="logo">
+					<img class="logo" alt="Дравці" src="{% static 'events/img/Dravci.svg' %}"></a>
+      <br/>
+      <h1>Греко-католицька парафія Різдва</h1>
+      <p>Пресвятої Богородиці <span class="typed" data-typed-items="м.Ужгород, мкр.Дравці,"></span></p>
+      <div class="social-links">
+          {% if event_list %}
+            {% for event in event_list %}
+          <strong>{{ event.date|date:"l - d F" }} {{ event.name }}</strong>
+        <br/>
+            <div class="list-line-day">
+          {{ event.list | safe  }}
+             </div>
+              {% endfor %}
+            {% else %}
+            Пусто
+          {% endif %}
+      </div>
+    </div>
+        <form class="search" id="app" method=POST action="{% url 'show-search' %}">
+          {% csrf_token %}
+          <label :data-state="state">
+            <input type="text" placeholder="Пошук" style="background-color: #f2f3f5;"
+                   name="searched" @click="state = 'opan'" @blur="state='close'" autocomplete="off"/>
+            <i class="fa fa-search" @click="" aria-hidden=""></i>
+          </label>
+        </form>
+  </section><!-- End Hero -->
+
+  <main id="main">
+    <!-- ======= Історія Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+            <a href="{% url 'history' %}" class="nav-link scrollto"><h2>Історія</h2></a>
+            <p></p></div>
+        <div class="row" style="justify-content: center; flex-wrap: wrap; align-items: center; margin: 0px auto; ">
+            {% if histor %}
+            <div class="row g-0" style="border-bottom: 55px solid #fff;">
+                <div class="col-md-4" style="object-fit:contain; justify-content: flex-start;">
+                    {% if histor.photo %}
+                    <img src="{{ histor.photo.url }}" class="card-img-top" style="background-position: center;">
+                    {% else %}
+                    <img src="#" class="card-img-top" style="display: none;">
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body" style="word-wrap: break-word; overflow-wrap: break-word;text-align: justify;">
+                    <h5 class="card-title"><strong>{{ histor.name }}</strong></h5>
+                    <p class="card-text">
+                         {{ histor.description | safe |truncatewords:30 }}
+                        <small class="text-muted">
+                        <a href="{% url 'show-index-history' histor.id %}" class="card-link">Читати далі</a>
+                    </small>
+                    </p>
+                  </div>
+                </div>
+            </div>
+            {% else %}
+                Пусто
+            {% endif %}
+        </div>
+      </div>
+    </section><!-- End Історія Section -->
+
+    <!-- ======= Розклад Section ======= -->
+
+    <section id="resume" class="resume">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <a href="{% url 'list_days' %}" class="nav-link scrollto"><h2>Розклад</h2></a><p></p>
+        </div>
+        {% if event_week %}
+          {% for e in event_week %}
+        <div class="row" style="justify-content: center; display: block; width: auto;">
+          <div class="">
+            <div class="resume-item pb-0">
+              <h4>{{ e.date|date:"l - d F" }} {{ e.name }}</h4>
+                <div class="list-line-dayes">
+                {{ e.list | safe  }}
+                </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        {% else %}
+                Пусто
+        {% endif %}
+      </div>
+    </section><!-- End Розклад Section -->
+
+    <!-- ======= Проповіді Section ======= -->
+
+    <section id="portfolio" class="portfolio section-bg">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title"><a href="{% url 'preaching' %}" class="nav-link scrollto">
+            <h2>Проповіді</h2></a><p></p></div>
+        <div class="row" style="justify-content: center; flex-wrap: wrap; align-items: center; margin: 0px auto; ">
+            {% if preaching %}
+
+            <div class="row g-0" style="border-bottom: 55px solid #fff;">
+                <div class="col-md-4" style="object-fit:contain;display: inline-flex;justify-content: flex-start;">
+                    {% if preaching.photo %}
+                    <img src="{{ preaching.photo.url }}" class="card-img-top" style=" background-position: center;">
+                    {% else %}
+                    <img src="#" class="card-img-top" style="display: none;">
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body" style="word-wrap: break-word; overflow-wrap: break-word;text-align: justify;">
+                    <h5 class="card-title"><strong>{{ p.name }}</strong></h5>
+                    <p class="card-text">
+                         {{ preaching.description | safe |truncatewords:30 }}
+                        <small class="text-muted">
+                        <a href="{% url 'show-index-preaching' preaching.id %}" class="card-link">Читати далі</a>
+                    </small>
+                    </p>
+                  </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+      </div>
+    </section><!-- End Проповіді Section -->
+
+    <!-- ======= Новини Section ======= -->
+
+    <section id="services 2" class="services">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title"><a href="{% url 'news' %}" class="nav-link scrollto">
+            <h2>Новини</h2></a><p></p></div>
+        <div class="row" style="justify-content: center; flex-wrap: wrap; align-items: center; margin: 0px auto; ">
+            {% if news %}
+            <div class="row g-0" style="border-bottom: 55px solid #fff;">
+                <div class="col-md-4"
+                     style="object-fit:contain;justify-content: flex-start;">
+                    {% if news.photo %}
+                    <img src="{{ news.photo.url }}" class="card-img-top" style="background-position: center;">
+                    {% else %}
+                    <img src="#" class="card-img-top" style="display: none;">
+                    {% endif %}
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body" style="word-wrap: break-word; overflow-wrap: break-word;text-align: justify;">
+                    <h5 class="card-title"><strong>{{ news.name }}</strong></h5>
+                    <p class="card-text">
+                         {{ news.description | safe |truncatewords:30 }}
+                        <small class="text-muted">
+                        <a href="{% url 'show-index-news' news.id %}" class="card-link">Читати далі</a>
+                    </small>
+                    </p>
+                  </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+      </div>
+    </section><!-- End Новини Section -->
+  </main><!-- End #main -->
+{% endblock %}
+
